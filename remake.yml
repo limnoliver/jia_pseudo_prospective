@@ -5,35 +5,41 @@ packages:
   - readr
   - sbtools
   - sf
+  - RcppCNPy
+  - purrr
 
 sources:
   - src/sb_utils.R
   - src/file_utils.R
+  - src/munge_npy.R
 
 targets:
   all:
     depends:
       - log/sb_posted_files.csv
-    
+   
+  # gather data
+  out_data/table1_model_predictions.csv:
+    command: gather_tables(out_file = target_name, table = 1)
 
-  sf_spatial_data:
-    command: st_read('example_data/example_shapefile/example_shapefile.shp')
-    depends:
-      - example_data/example_shapefile/example_shapefile.dbf
-      - example_data/example_shapefile/example_shapefile.prj
-      - example_data/example_shapefile/example_shapefile.shx
-  
-  spatial_metadata:
-    command: extract_feature(sf_spatial_data)
+  out_data/table2_model_predictions.csv:
+    command: gather_tables(out_file = target_name, table = 2)
     
-  out_data/cars.csv:
-    command: file.copy(from = "example_data/example_cars.csv", 
-      to = target_name, overwrite = TRUE)
+  out_data/table3_model_predictions.csv:
+    command: gather_tables(out_file = target_name, table = 3)
+    
+  # spatial data
+  sf_subnetwork:
+    command: fetch_network(I('../delaware-model-prep/1_network/out/network.rds'))
   
-  out_data/spatial.zip:
+  out_data/study_streams.zip:
     command: sf_to_zip(zip_filename = target_name, 
-      sf_object = sf_spatial_data, layer_name = I('spatial_data'))
+      sf_object = sf_subnetwork, layer_name = I('study_streams'))
+      
+  spatial_metadata:
+    command: extract_feature(sf_subnetwork)
 
+  # metadata files
   out_xml/fgdc_metadata.xml:
     command: render(filename = target_name,
       "in_text/text_data_release.yml",
@@ -41,9 +47,12 @@ targets:
     
   log/sb_posted_files.csv:
     command: sb_replace_files(filename = target_name, 
-      sb_id = I('5faaac68d34eb413d5df1f22'),
-      "out_data/spatial.zip",
-      "out_data/cars.csv",
+      sb_id = I('614e0b38d34e0df5fb98a0b7'),
+      #"in_data/HRGN_assimilation_code.py",
+      "out_data/study_streams.zip",
+      "out_data/table1_model_predictions.csv",
+      "out_data/table2_model_predictions.csv",
+      "out_data/table3_model_predictions.csv",
       "out_xml/fgdc_metadata.xml",
       sources = "src/sb_utils.R")
       
