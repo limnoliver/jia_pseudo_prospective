@@ -1,133 +1,297 @@
 title: >-
-  Data release: [your title here]
-
+  Model predictions from modeling reservoir release in stream temperature prediction using pseudo-prospective learning and physical simulations
 
 abstract: >-
-  [a description of this data release]
+  <p>
+  Stream networks with reservoirs provide a particularly hard modeling challenge because reservoirs can decouple
+  physical processes (e.g., water temperature dynamics in streams) from atmospheric signals. Including observed reservoir
+  releases as inputs to models can improve water temperature predictions below reservoirs, but many reservoirs
+  are not well-observed. This data release contains predictions from stream temperature models described in Jia et al. 2022,
+  which describes different deep learning and process-guided deep learning model architectures that were developed
+  to handle scenarios of missing reservoir releases. The spatial extent of this modeling effort was restricted to 
+  two spatially disjointed regions in the Delaware River Basin. The first region included streams above the Delaware River at Lordville, NY,
+  and included the West Branch of the Delaware River above and below the Cannonsville Reservoir and the East Branch of the 
+  Delaware River above and below the Pepacton Reservoir. Additionally, the Neversink River which flows into the Delaware River at
+  Port Jervis, New York, was included and contains river reaches above and below the Neversink Reservoir. 
+  For each model, there are test period predictions from 2006-12-26 through 2020-06-22. Model input, training,
+  and validation data can be found in Oliver et al. (2021). 
+  
+  <p>The publication associated with this data release is
+  Jia X., Chen S., Xie Y., Yang H., Appling A., Oliver S., Jiang Z. 2022. Modeling reservoir release in stream temperature prediction using pseudo-prospective learning and physical simulations, SIAM International Conference on Data Mining (SDM). DOI: XX.</p>
+  
       
-authors: ["[NAME 1]", "[NAME 2]"]
-pubdate: 2020 # replace with actual year, e.g., 2020
-doi: https://doi.org/YY.XXXXX/XXXXXX # replace with actual DOI
+authors: ["Xiaowei Jia", "Shengyu Chen", "Yiqun Xie", "Haoyu Yang", "Alison Appling", "Samantha Oliver" , "Zhe Jiang"]
+pubdate: 2022 # replace with actual year, e.g., 2020
+doi: https://doi.org/10.5066/P9025J9N # replace with actual DOI
 
 build-environment: Multiple computer systems were used to generate these data, including linux, OSX. The open source languages R and Python were used on all systems.
 
 # ----associated publication----
 larger-cites:
   -
-    authors: ["Jordan S. Read", "Xiaowei Jia", "Jared Willard", "Alison P. Appling", "Jacob A. Zwart","Samantha K. Oliver","Anuj Karpatne","Gretchen J.A. Hansen", "Paul C. Hanson", "William Watkins", "Michael Steinbach","Vipin Kumar"]
+    authors: ["Xiaowei Jia", "Shengyu Chen", "Yiqun Xie", "Haoyu Yang", "Alison Appling", "Samantha Oliver" , "Zhe Jiang5"]
     title: >-
-      Process-guided deep learning predictions of lake water temperature
-    pubdate: 2019
+      Modeling reservoir release in stream temperature prediction using pseudo-prospective learning and physical simulations
+    pubdate: 2022
 
 # ----supporting publications----    
 cross-cites:
   -
-    authors: ['Luke A. Winslow','Gretchen J.A. Hansen','Jordan S. Read','Michael Notaro']
+    authors: ['Samantha Oliver', 'Alison Appling', 'Rasha Atshan', 'David Watkins', 'Jeffrey Sadler', 'Hayley Corson-Dosch', 'Jacob Zwart', 'Jordan Read']
     title: >-
-      Large-scale modeled contemporary and future water temperature estimates for 10,774 Midwestern U.S. Lakes
-    pubdate: 2017
-    link: http://dx.doi.org/10.1038/sdata.2017.53
+      Predicting water temperature in the Delaware River Basin
+    pubdate: 2021
+    link: https://doi.org/10.5066/P9GD8I7A.
+  -
+    authors: ['Roland Viger', 'Andrew Bock']
+    title: >-
+      GIS Features of the Geospatial Fabric for National Hydrologic Modeling
+    pubdate: 2014
+    link: http://dx.doi.org/doi:10.5066/F7542KMD
 
 process-date: !expr format(Sys.time(),'%Y%m%d')
-file-format: a single comma-delimited file and a single zipped shapefile
+file-format: three comma-delimited files and a single zipped shapefile
 
 entities:
   -
-    data-name: example_cars.csv
-    data-description: A csv file containing important information...
+    data-name: forecast_model_train.py
+    data-description: >-
+      A Python code file used to train a forecast model that only predicts water temperature for the next day (described in Jia et al. 2021).
+    data-defsrc: This study
+  -
+    data-name: SAG_train_predict.py
+    data-description: >-
+      A Python code file used to predict water temperature at the current date. The code uses the simulated water temperature and observed water release data for reservoirs to model their impact to downstream segments. The embeddings obtained from the forecast model are used in this code to estimate the reservoir impact when the release data are not available.
+    data-defsrc: This study
+  -
+    data-name: table1_model_predictions.csv
+    data-description: >-
+      A csv file containing model predictions that correspond to Table 1 in Jia et al. (2022).
+      This set of experiments compares how the state-aware graph model with pseudo-prospective learning (SAG-pp)
+      performs at predicting stream temperature relative to a suite of baseline models when reservoir release infomration is not available.
     attributes:
     -
-      attr-label: speed
-      attr-def: definition of column_name_1
+      attr-label: seg_id_nat
+      attr-def: >-
+        National unique stream reach identifier. 
+        This is the ID named seg_id_nat from the Geospatial Fabric for National Hydrologic Modeling.
       attr-defs: >-
-        citation or URL of column_name_1. If citation, should appear in cross-cites. Can use NA or "This release"
+        https://www.sciencebase.gov/catalog/item/535eda80e4b08e65d60fc834
       data-min: NA
       data-max: NA
       data-units: NA
     -
-      attr-label: dist
-      attr-def: definition of column_name_2
-      attr-defs: >-
-        citation or URL of column_name_2. If citation, should appear in cross-cites. Can use NA or "This release"
+      attr-label: date
+      attr-def: date of prediction
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: temp_deg_c
+      attr-def: predicted stream temperature, in degrees C
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: degrees Celcius
+    -
+      attr-label: model
+      attr-def: >-
+        Model used to make temperature predictions; abbreviation describes the underlying model architechture where
+        
+        
+        ANN = artificial neural network
+        
+        RNN = recurrent neural network
+                
+        RGrN = recurrent graph neural network
+        
+        SAG-pp = state-aware graph (SAG) model with pseudo-prospective (PP) learning
+        
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: NA
   -
-    data-name: example_shapefile.zip
-    data-description: A zip file containing...
+    data-name: table2_model_predictions.csv
+    data-description: >-
+      A csv file containing model predictions that correspond to Table 2 in Jia et al. (2022).
+      This set of experiments tested whether observed reservoir releases from one reservoir
+      could be leveraged to make better water temperature predictions in streams below a reservoir
+      without observed releases. This experiment used two well-observed reservoirs (Pepacton and Cannonsville),
+      where the observed releases were withheld from one or both reservoirs to test the models.
     attributes:
     -
-      attr-label: x
-      attr-def: definition of x
+      attr-label: seg_id_nat
+      attr-def: >-
+        National unique stream reach identifier. 
+        This is the ID named seg_id_nat from the Geospatial Fabric for National Hydrologic Modeling.
       attr-defs: >-
-        citation or URL of x. If citation, should appear in cross-cites. Can use NA or "This release"
-      data-min: NA
-      data-max: NA
-      data-units: NA  
-    -
-      attr-label: y
-      attr-def: definition of y
-      attr-defs: >-
-        citation or URL of y. If citation, should appear in cross-cites. Can use NA or "This release"
+        https://www.sciencebase.gov/catalog/item/535eda80e4b08e65d60fc834
       data-min: NA
       data-max: NA
       data-units: NA
     -
-      attr-label: z
-      attr-def: definition of z
+      attr-label: date
+      attr-def: date of prediction
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: temp_deg_c
+      attr-def: predicted stream temperature, in degrees C
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: degrees Celcius
+    -
+      attr-label: model
+      attr-def: >-
+        Model used to make temperature predictions; abbreviation describes the underlying model architechture where
+        
+        
+        SAG-pp = state-aware graph (SAG) model with pseudo-prospective (PP) learning used for both Cannonsville and Pepacton reservoirs. The SAG-pp method assumes no reservoir release observations.
+        
+        SAG-ppC = SAG-pp used for Cannonsville and the SE method is used for Pepacton. The SE method directly uses the observed reservoir releases by combining the simulated reservoir temperatures with the observed release volumes.
+        
+        SAG-ppP = SAG-pp used for Pepacton and the SE method is used for Cannonsville. The SE method directly uses the observed reservoir releases by combining the simulated reservoir temperatures with the observed release volumes.
+        
+        SAG-sim = The SE approach used for both Cannonsville and Pepacton reservoirs.
+        
+        SAG-flow = A modified SE approach used for both Cannonsville and Pepacton reservoirs. This modified SE method uses the observed reservoir releases but does not use the simulated reservoir temperatures. 
+        
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+  -
+  -
+    data-name: table3_model_predictions.csv
+    data-description: >-
+      A csv file containing model predictions that correspond to Table 3 in Jia et al. (2022).
+      This set of experiments tested whether we can use the stream-reservoir patterns learned in a
+      region with well-observed reservoir releases to improve water temperature prediction in a
+      spatially disjointed region without observed reservoir releases. This experiment uses reservoir releases
+      from the Cannonsville and Pepacton reservoirs in an attempt to improve predictions below the Neversink Reservoir.
+    attributes:
+    -
+      attr-label: seg_id_nat
+      attr-def: >-
+        National unique stream reach identifier. 
+        This is the ID named seg_id_nat from the Geospatial Fabric for National Hydrologic Modeling.
       attr-defs: >-
-        citation or URL of z. If citation, should appear in cross-cites. Can use NA or "This release"
+        https://www.sciencebase.gov/catalog/item/535eda80e4b08e65d60fc834
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: date
+      attr-def: date of prediction
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+    -
+      attr-label: temp_deg_c
+      attr-def: predicted stream temperature, in degrees C
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: degrees Celcius
+    -
+      attr-label: model
+      attr-def: >-
+        Model used to make temperature predictions; abbreviation describes the underlying model architechture where
+        
+        
+        SAG-ppN = A single global model where the SAG-pp method was used for the Neversink Reservoir and the SE method was used for the Pepacton and Cannonsville reservoirs. The SE method directly uses the observed reservoir releases by combining the simulated reservoir temperatures with the observed release volumes.
+        
+        SAG-flow = A modified SE approach used for the Neversink, Cannonsville, and Pepacton reservoirs. This modified SE method uses the observed reservoir releases but does not use the simulated reservoir temperatures. 
+        
+        ANN = artificial neural network
+        
+        RNN = recurrent neural network
+                
+        RGrN = recurrent graph neural network
+        
+      attr-defs: This data release
+      data-min: NA
+      data-max: NA
+      data-units: NA
+  -
+    data-name: study_streams.zip
+    data-description: GIS polylines data for the 56 stream segments included in this study
+    attributes:
+    -
+      attr-label: seg_id_nat
+      attr-def: >-
+        National unique stream reach identifier. 
+        This is the ID named seg_id_nat from the Geospatial Fabric for National Hydrologic Modeling.
+        This feature corresponds to "seg_id_nat" in other data files.
+      attr-defs: >-
+        https://www.sciencebase.gov/catalog/item/535eda80e4b08e65d60fc834
+      data-min: NA
+      data-max: NA
+      data-units: NA    
+    -
+      attr-label: region
+      attr-def: >-
+        Region refers to two spatially disjointed regions of the Delaware River Basin that were used in Jia et al. 2022.
+        Region S1 contains 56 river segments and the Cannonsville and Pepacton reservoirs. Region S2 contains 18 river segments
+        and the Neversink Reservoir. 
+      attr-defs: This data release
       data-min: NA
       data-max: NA
       data-units: NA
 
 
-purpose: Fisheries biology, limnological research, and climate science.
-start-date: 19800401
-end-date: 20191231
+purpose: Hydrology, limnological research, and water quality research.
+start-date: 20061226
+end-date: 20200622
 
 update: none planned
-themekeywords: ["machine learning", "deep learning", "hybrid modeling", "water","temperature", "temperate lakes","reservoirs","modeling","climate change","thermal profiles"]
+themekeywords: ["machine learning", "deep learning", "hybrid modeling", "water","temperature", "reservoirs","modeling","climate change"]
 
 usage-rules: >-
   These data are open access usable via creative commons as long as original data providers are acknowledged
 
-descgeog: "Lake polygons as defined by the national hydrography dataset high resolution"
+descgeog: "River polylines as defined by the Geospatial Fabric for National Hydrologic Modeling"
 data-publisher: U.S. Geological Survey
 indirect-spatial: U.S.A.
 latitude-res: 0.00001
 longitude-res: 0.00001
 
 # ----contacts----
-contact-person: Jordan S. Read
-contact-phone: 608-821-3922
-contact-email: jread@usgs.gov
-contact-position: Research Civil Engineer
-contact-address: "8505 Research Way"
-contact-city: Middleton
-contact-state: WI
-contact-zip: 53562
+contact-person: Xiaowei Jia
+contact-phone: 412-624-8490
+contact-email: xiaowei@pitt.edu
+contact-position: Assistant Professor
+contact-address: "5413 Sennott Square"
+contact-city: Pittsburgh
+contact-state: PA
+contact-zip: 15260
 
-metadata-person: Jordan S. Read
-metadata-position: Research Civil Engineer
-metadata-phone: 608-821-3921
+metadata-person: Samantha K. Oliver
+metadata-position: Data Scientist
+metadata-phone: 608-821-3824
 metadata-fax: 608-821-3817
-metadata-email: jread@usgs.gov
-metadata-address: "8505 Research Way"
-metadata-city: Middleton
+metadata-email: soliver@usgs.gov
+metadata-address: "1 Gifford Pinchot Drive"
+metadata-city: Madison
 metadata-state: WI
-metadata-zip: 53562
+metadata-zip: 53726
 metadata-date: !expr format(Sys.time(),'%Y%m%d')
 
 accur-test: No formal attribute accuracy tests were conducted.
 funding-credits: >-
-  This study was funded by the [DETAILS HERE]
-  This research used resources of the Core Science Analytics and Synthesis Advanced Research Computing program at the U.S. Geological Survey.
+  This study was funded by the U.S. Geological Survey Integrated Water Prediction Program via a Cooperative Ecosystem Studies Unit agreement award number G21AC10207-00.
 
 process-description: >-
-  [A description of processing]
+  Both stream and reservoir thermodynamic models were used to simulate water temperature and pre-train deep learning models.
+  Descriptions of these models can be found in Oliver et al. (2021).
 
-distro-person: Jordan S. Read
+distro-person: Samantha K. Oliver
 liability-statement: >-
   Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected.
   Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS),

@@ -47,8 +47,9 @@ targets:
     
   log/sb_posted_files.csv:
     command: sb_replace_files(filename = target_name, 
-      sb_id = I('614e0b38d34e0df5fb98a0b7'),
-      #"in_data/HRGN_assimilation_code.py",
+      sb_id = I('61cc99a5d34ed79293fc63ba'),
+      "in_data/predictions/forecast_model_train.py",
+      "in_data/predictions/SAG_train_predict.py",
       "out_data/study_streams.zip",
       "out_data/table1_model_predictions.csv",
       "out_data/table2_model_predictions.csv",

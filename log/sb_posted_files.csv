@@ -1,0 +1,8 @@
+filepath,sb_id,time_uploaded_to_sb
+in_data/predictions/forecast_model_train.py,61cc99a5d34ed79293fc63ba,2022-01-04 21:34 UTC
+in_data/predictions/SAG_train_predict.py,61cc99a5d34ed79293fc63ba,2022-01-04 21:34 UTC
+out_data/study_streams.zip,61cc99a5d34ed79293fc63ba,2021-12-30 18:22 UTC
+out_data/table1_model_predictions.csv,61cc99a5d34ed79293fc63ba,2021-12-30 15:56 UTC
+out_data/table2_model_predictions.csv,61cc99a5d34ed79293fc63ba,2021-12-29 19:47 UTC
+out_data/table3_model_predictions.csv,61cc99a5d34ed79293fc63ba,2021-12-30 15:56 UTC
+out_xml/fgdc_metadata.xml,61cc99a5d34ed79293fc63ba,2022-01-04 21:35 UTC
