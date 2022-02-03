@@ -19,7 +19,8 @@ munge_npy <- function(in_file, table) {
   dat_out <- dat %>%
     mutate(seg_id_nat = site_ids) %>%
     tidyr::pivot_longer(cols = -seg_id_nat, names_to = 'date', values_to = 'temp_deg_c') %>%
-    mutate(source = in_file)
+    mutate(source = in_file) %>%
+    mutate(temp_deg_c = round(temp_deg_c, 2))
   
   return(dat_out)
 }
