@@ -17,7 +17,7 @@ abstract: >-
   and validation data can be found in Oliver et al. (2021). 
   
   <p>The publication associated with this data release is
-  Jia X., Chen S., Xie Y., Yang H., Appling A., Oliver S., Jiang Z. 2022. Modeling reservoir release in stream temperature prediction using pseudo-prospective learning and physical simulations, SIAM International Conference on Data Mining (SDM). DOI: XX.</p>
+  Jia X., Chen S., Xie Y., Yang H., Appling A., Oliver S., Jiang Z. 2022. Modeling reservoir release in stream temperature prediction using pseudo-prospective learning and physical simulations, SIAM International Conference on Data Mining (SDM). DOI: https://doi.org/10.1137/1.9781611977172.11</p>
   
       
 authors: ["Xiaowei Jia", "Shengyu Chen", "Yiqun Xie", "Haoyu Yang", "Alison Appling", "Samantha Oliver" , "Zhe Jiang"]
@@ -32,6 +32,7 @@ larger-cites:
     authors: ["Xiaowei Jia", "Shengyu Chen", "Yiqun Xie", "Haoyu Yang", "Alison Appling", "Samantha Oliver" , "Zhe Jiang5"]
     title: >-
       Modeling reservoir release in stream temperature prediction using pseudo-prospective learning and physical simulations
+    doi: https://doi.org/10.1137/1.9781611977172.11
     pubdate: 2022
 
 # ----supporting publications----    
